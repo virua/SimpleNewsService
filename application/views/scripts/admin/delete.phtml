@@ -1,0 +1,11 @@
+<p>
+	Ви впевнені, що хочете видалити новину
+    &quot;<b><?php echo $this->escape($this->post['title']); ?></b>&quot;?
+</p>
+<div align="center">
+	<form action="<?php echo $this->url(array('controller'=>'admin', 'action'=>'delete'), null, true); ?>" method="post">
+	     <input type="hidden" name="id" value="<?php echo $this->post['id']; ?>" />
+	     <input type="submit" name="delete" class="submit-btn" value="Так" />
+	     <input type="submit" name="cancel" class="submit-btn" value="Ні" />
+	</form>
+</div>

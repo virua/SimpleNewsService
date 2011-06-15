@@ -1,0 +1,21 @@
+<ul id="news-list">
+    <?php foreach($this->paginator as $news_item) : ?>
+        <li>
+            <h2>
+            	<a href="<?php echo $this->url(array('controller' => 'index', 'action' => 'view', 'id' => (int)$news_item['id']), null, true ) ?>"><?php echo $this->escape($news_item['title']) ?></a>
+            </h2>
+
+            <p><?php echo mb_substr($news_item['text'], 0, 80, $this->getEncoding()) ?> ...</p>
+
+            <small>
+            	Дата: <b><?php echo $this->escape($news_item['date']) ?></b>,
+            	Категорія: <b><?php echo $this->escape( $this->categoryName($news_item['category_id']) ) ?></b>
+            </small>
+        </li>
+    <?php endforeach; ?>
+</ul>
+
+<?php
+// показуємо посторінкову навігацію
+echo $this->paginationControl($this->paginator, 'Sliding', 'paginator.phtml');
+?>

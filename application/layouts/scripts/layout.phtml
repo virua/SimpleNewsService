@@ -1,0 +1,81 @@
+<?php
+$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+$this->headTitle()->setSeparator(' - ');
+$this->headTitle('Простенька служба новин');
+echo $this->doctype(); ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <?php echo $this->headMeta(); ?>
+        <?php echo $this->headTitle(); ?>
+        <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/default.css'); ?>
+
+        <?php
+        // коли поточним контролером є `auth`, то ховаємо бокову панель
+        $controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+        if($controllerName == 'auth'){
+        	echo $this->headLink()->appendStylesheet($this->baseUrl().'/css/login-hacks.css');
+        }
+        ?>
+    </head>
+    <body>
+
+		<div id="wrapper">
+
+		    <div id="container">
+		       <div id="header">
+		       		<h1>
+		       			<?php echo $this->escape($this->title); ?>
+		       		</h1>
+		       </div>
+
+		       <div id="content-wrapper">
+
+		           <div id="content">
+			            <?php echo $this->layout()->content; ?>
+		           </div>
+
+		           <div id="sidebar">
+
+		           		<?php
+
+		           		$auth = Zend_Auth::getInstance();
+
+					    // перевірка авторизації
+					    if ( $auth->hasIdentity() ) {
+					        // користувач авторизований
+
+                            // лінк для переходу в "закриту" частину сайту
+                            $admin_url = $this->url(array('controller' => 'admin', 'action' => 'index'), null, true);
+                            // лінк для виходу
+                            $logout_url = $this->url(array('controller' => 'auth', 'action' => 'logout'), null, true);
+
+					        ?>
+
+					        Вітаємо, <?php echo $auth->getIdentity()->username; ?>.<br />
+					        <ul id="sidebar-list">
+					        	<li><a href="<?php echo $admin_url; ?>">Адмінка</a></li>
+					        	<li><a href="<?php echo $logout_url; ?>">Вийти</a></li>
+					        </ul>
+
+					        <?php
+					    }else{					    	// показуємо форму для авторизації
+
+					    	if ( isset($this->form) ) {						    	echo $this->form->setAction(
+									$this->url(array('controller' => 'auth', 'action' => 'login'), null, true)
+								);					    	}
+					    }
+						?>
+
+		           </div>
+
+		       </div>
+
+		       <div class="clear"></div>
+		       <div id="footer"></div>
+
+		    </div>
+
+		</div>
+
+    </body>
+</html>
