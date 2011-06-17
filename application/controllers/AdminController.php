@@ -4,8 +4,8 @@ class AdminController extends Zend_Controller_Action
 {
 
     /**
-	  * список новин
-	  */
+      * список новин
+      */
     public function indexAction()
     {
 
@@ -15,15 +15,15 @@ class AdminController extends Zend_Controller_Action
         $news = new Application_Model_DbTable_Posts();
 
         // розбиття на сторінки
-		$curPage = (int)$this->getRequest()->getParam('page', 1);
-		$perPage = 5; // кількість новин на одній сторінці
-		$this->view->paginator = $news->getPaginatorRows($curPage, $perPage);
+        $curPage = (int)$this->getRequest()->getParam('page', 1);
+        $perPage = 5; // кількість новин на одній сторінці
+        $this->view->paginator = $news->getPaginatorRows($curPage, $perPage);
 
     }
 
     /**
-	  * створення новини
-	  */
+      * створення новини
+      */
     public function createAction()
     {
         $this->view->title = 'Створити новину - Адмінка';
@@ -38,37 +38,37 @@ class AdminController extends Zend_Controller_Action
         // і заповнюємо ним цей елемент форми
         $form->getElement('category_id')->setMultiOptions( $catsArr );
 
-	    $this->view->form = $form;
+        $this->view->form = $form;
 
-	    // перевіряємо, чи форму надіслано
-	    if ($this->getRequest()->isPost()) {
+        // перевіряємо, чи форму надіслано
+        if ($this->getRequest()->isPost()) {
 
-	        // масив даних з форми
-	        $formData = $this->getRequest()->getPost();
+            // масив даних з форми
+            $formData = $this->getRequest()->getPost();
 
-	        if ($form->isValid($formData)) {
+            if ($form->isValid($formData)) {
 
-	            $title = $formData['title'];
-	            $text = $formData['text'];
-	            $category_id = (int)$formData['category_id'];
+                $title = $formData['title'];
+                $text = $formData['text'];
+                $category_id = (int)$formData['category_id'];
 
-				// додаємо новину в базу
-				$posts = new Application_Model_DbTable_Posts();
-	            $posts->addPost($title, $text, $category_id);
+                // додаємо новину в базу
+                $posts = new Application_Model_DbTable_Posts();
+                $posts->addPost($title, $text, $category_id);
 
-	            // редірект на головну сторінку адмінки
-	            $this->_helper->redirector('index', 'admin');
+                // редірект на головну сторінку адмінки
+                $this->_helper->redirector('index', 'admin');
 
-	        } else {
-	            $form->populate($formData);
-	        }
+            } else {
+                $form->populate($formData);
+            }
 
-	 	}
+        }
     }
 
     /**
-	  * редагування новини
-	  */
+      * редагування новини
+      */
     public function updateAction()
     {
         $this->view->title = 'Редагування новини - Адмінка';
@@ -98,12 +98,12 @@ class AdminController extends Zend_Controller_Action
 	            $text = $formData['text'];
 	            $category_id = (int)$formData['category_id'];
 
-				if ($id > 0) {
-					// редагуємо (оновлюємо існуючу) новину в базі
-					$posts = new Application_Model_DbTable_Posts();
-		            $posts->updatePost($id, $title, $text, $category_id);
+                    if ($id > 0) {
+                        // редагуємо (оновлюємо існуючу) новину в базі
+                        $posts = new Application_Model_DbTable_Posts();
+                        $posts->updatePost($id, $title, $text, $category_id);
 
-		            $this->view->message = 'Новина оновлена успішно';
+                        $this->view->message = 'Новина оновлена успішно';
 	            }
 
 	        } else {
@@ -126,36 +126,36 @@ class AdminController extends Zend_Controller_Action
     }
 
     /**
-	  * видалення новини
-	  */
+      * видалення новини
+      */
     public function deleteAction()
     {
     	$this->view->title = 'Видалення новини - Адмінка';
         $this->view->headTitle($this->view->title);
 
-	    // перевіряємо, чи форму надіслано
-	    if ($this->getRequest()->isPost()) {
+        // перевіряємо, чи форму надіслано
+        if ($this->getRequest()->isPost()) {
 
-	        // перевіряємо, чи підтверджене видалення
-	        $del = $this->getRequest()->getPost('delete');
-	        if (isset($del)) {
-	            $id = (int)$this->getRequest()->getPost('id');
-	            if ($id > 0) {
-		            // видаляємо новину з ідентифікатором $id
-					$posts = new Application_Model_DbTable_Posts();
-		            $posts->deletePost($id);
-	            }
-	        }
+            // перевіряємо, чи підтверджене видалення
+            $del = $this->getRequest()->getPost('delete');
+            if (isset($del)) {
+                $id = (int)$this->getRequest()->getPost('id');
+                if ($id > 0) {
+                    // видаляємо новину з ідентифікатором $id
+                    $posts = new Application_Model_DbTable_Posts();
+                    $posts->deletePost($id);
+                }
+            }
 
-	        $this->_helper->redirector('index', 'admin');
+            $this->_helper->redirector('index', 'admin');
 
-	    } else {
-	        // виводимо форму для підтвердження видалення
-	        // новини з ідентифікатором $id
-	        $id = $this->_getParam('id', 0);
-	        $posts = new Application_Model_DbTable_Posts();
-	        $this->view->post = $posts->getPost($id);
-	    }
+        } else {
+            // виводимо форму для підтвердження видалення
+            // новини з ідентифікатором $id
+            $id = $this->_getParam('id', 0);
+            $posts = new Application_Model_DbTable_Posts();
+            $this->view->post = $posts->getPost($id);
+        }
     }
 
 

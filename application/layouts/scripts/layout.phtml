@@ -19,63 +19,66 @@ echo $this->doctype(); ?>
     </head>
     <body>
 
-		<div id="wrapper">
+        <div id="wrapper">
 
-		    <div id="container">
-		       <div id="header">
-		       		<h1>
-		       			<?php echo $this->escape($this->title); ?>
-		       		</h1>
-		       </div>
+            <div id="container">
+               <div id="header">
+                    <h1><?php echo $this->escape($this->title); ?></h1>
+               </div>
 
-		       <div id="content-wrapper">
+               <div id="content-wrapper">
 
-		           <div id="content">
-			            <?php echo $this->layout()->content; ?>
-		           </div>
+                   <div id="content">
+                        <?php echo $this->layout()->content; ?>
+                   </div>
 
-		           <div id="sidebar">
+                   <div id="sidebar">
 
-		           		<?php
+                    <?php
 
-		           		$auth = Zend_Auth::getInstance();
+                    $auth = Zend_Auth::getInstance();
 
-					    // перевірка авторизації
-					    if ( $auth->hasIdentity() ) {
-					        // користувач авторизований
+                        // перевірка авторизації
+                        if ( $auth->hasIdentity() ) {
+                            // користувач авторизований
 
                             // лінк для переходу в "закриту" частину сайту
                             $admin_url = $this->url(array('controller' => 'admin', 'action' => 'index'), null, true);
                             // лінк для виходу
                             $logout_url = $this->url(array('controller' => 'auth', 'action' => 'logout'), null, true);
 
-					        ?>
+                            ?>
 
-					        Вітаємо, <?php echo $auth->getIdentity()->username; ?>.<br />
-					        <ul id="sidebar-list">
-					        	<li><a href="<?php echo $admin_url; ?>">Адмінка</a></li>
-					        	<li><a href="<?php echo $logout_url; ?>">Вийти</a></li>
-					        </ul>
+                            Вітаємо, <?php echo $auth->getIdentity()->username; ?>.<br />
+                            <ul id="sidebar-list">
+                                    <li><a href="<?php echo $admin_url; ?>">Адмінка</a></li>
+                                    <li><a href="<?php echo $logout_url; ?>">Вийти</a></li>
+                            </ul>
 
-					        <?php
-					    }else{					    	// показуємо форму для авторизації
+                        <?php
+                        
+                        }else{
+                            // показуємо форму для авторизації
 
-					    	if ( isset($this->form) ) {						    	echo $this->form->setAction(
-									$this->url(array('controller' => 'auth', 'action' => 'login'), null, true)
-								);					    	}
-					    }
-						?>
+                            if ( isset($this->form) ) {
+                                echo $this->form->setAction(
+                                        $this->url(array('controller' => 'auth', 'action' => 'login'), null, true)
+                                );
+                            }
 
-		           </div>
+                        }
+                        ?>
 
-		       </div>
+                   </div>
 
-		       <div class="clear"></div>
-		       <div id="footer"></div>
+               </div>
 
-		    </div>
+               <div class="clear"></div>
+               <div id="footer"></div>
 
-		</div>
+            </div>
+
+        </div>
 
     </body>
 </html>

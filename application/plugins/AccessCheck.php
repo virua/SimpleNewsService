@@ -1,8 +1,8 @@
 <?php
-/**
-  * ïåðåâ³ðêà, ÷è ìàº êîðèñòóâà÷ äîñòóï äî ïîòî÷íî¿ ñòîð³íêè (ðåñóðñó)
-  */
 
+/**
+  * Ð¿ÐµÑ€ÐµÐ²Ñ–Ñ€ÐºÐ°, Ñ‡Ð¸ Ð¼Ð°Ñ” ÐºÐ¾Ñ€Ð¸ÑÑ‚ÑƒÐ²Ð°Ñ‡ Ð´Ð¾ÑÑ‚ÑƒÐ¿ Ð´Ð¾ Ð¿Ð¾Ñ‚Ð¾Ñ‡Ð½Ð¾Ñ— ÑÑ‚Ð¾Ñ€Ñ–Ð½ÐºÐ¸ (Ñ€ÐµÑÑƒÑ€ÑÑƒ)
+  */
 class Application_Plugin_AccessCheck extends Zend_Controller_Plugin_Abstract
 {
     private $_acl = null;
@@ -15,19 +15,19 @@ class Application_Plugin_AccessCheck extends Zend_Controller_Plugin_Abstract
     }
 
     public function preDispatch(Zend_Controller_Request_Abstract $request) {
-        // îòðèìóºìî ³ì'ÿ ïîòî÷íîãî ðåñóðñó
+        // Ð¾Ñ‚Ñ€Ð¸Ð¼ÑƒÑ”Ð¼Ð¾ Ñ–Ð¼'Ñ Ð¿Ð¾Ñ‚Ð¾Ñ‡Ð½Ð¾Ð³Ð¾ Ñ€ÐµÑÑƒÑ€ÑÑƒ
         $resource = $request->getControllerName();
 
-        // îòðèìóºìî ³ì'ÿ åêøåíà
+        // Ð¾Ñ‚Ñ€Ð¸Ð¼ÑƒÑ”Ð¼Ð¾ Ñ–Ð¼'Ñ ÐµÐºÑˆÐµÐ½Ð°
         $action = $request->getActionName();
 
-        // îòðèìóºìî ðîëü êîðèñòóâà÷à
+        // Ð¾Ñ‚Ñ€Ð¸Ð¼ÑƒÑ”Ð¼Ð¾ Ñ€Ð¾Ð»ÑŒ ÐºÐ¾Ñ€Ð¸ÑÑ‚ÑƒÐ²Ð°Ñ‡Ð°
         $identity = $this->_auth->getStorage()->read();
 
-        // ÿêùî ðîëü ïîðîæíÿ, òî ìàºìî ñïðàâó ç "ãîñòåì"
+        // ÑÐºÑ‰Ð¾ Ñ€Ð¾Ð»ÑŒ Ð¿Ð¾Ñ€Ð¾Ð¶Ð½Ñ, Ñ‚Ð¾ Ð¼Ð°Ñ”Ð¼Ð¾ ÑÐ¿Ñ€Ð°Ð²Ñƒ Ð· "Ð³Ð¾ÑÑ‚ÐµÐ¼"
         $role = empty($identity->role) ? 'guest' : $identity->role;
 
-        // ÿêùî êîðèñòóâà÷ íå ìàº äîñòóïó, ïåðåêèäàºìî éîãî íà àâòîðèçàö³þ
+        // ÑÐºÑ‰Ð¾ ÐºÐ¾Ñ€Ð¸ÑÑ‚ÑƒÐ²Ð°Ñ‡ Ð½Ðµ Ð¼Ð°Ñ” Ð´Ð¾ÑÑ‚ÑƒÐ¿Ñƒ, Ð¿ÐµÑ€ÐµÐºÐ¸Ð´Ð°Ñ”Ð¼Ð¾ Ð¹Ð¾Ð³Ð¾ Ð½Ð° Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ñ–ÑŽ
         if (!$this->_acl->isAllowed($role, $resource, $action)) {
             $request->setControllerName('auth')->setActionName('index');
         }

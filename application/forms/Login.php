@@ -1,8 +1,8 @@
 <?php
-/**
- * форма для авторизації
- */
 
+/**
+  * форма для авторизації
+  */
 class Application_Form_Login extends Zend_Form
 {
     public function init()

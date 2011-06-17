@@ -1,11 +1,11 @@
 <h2>
-	<a href="<?php echo $this->baseUrl() ?>">Головна</a> &raquo;
-	<?php echo $this->escape($this->post['title']) ?>
+    <a href="<?php echo $this->baseUrl() ?>">Головна</a> &raquo;
+    <?php echo $this->escape($this->post['title']) ?>
 </h2>
 
 <p><?php echo $this->post['text'] ?></p>
 
 <small>
-	Дата: <b><?php echo $this->escape($this->post['date']) ?></b>,
-	Категорія: <b><?php echo $this->escape( $this->categoryName($this->post['category_id']) ) ?></b>
+    Дата: <b><?php echo $this->escape($this->post['date']) ?></b>,
+    Категорія: <b><?php echo $this->escape( $this->categoryName($this->post['category_id']) ) ?></b>
 </small>

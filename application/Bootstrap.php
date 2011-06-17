@@ -3,47 +3,47 @@
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     /**
-	  * íàëàøòîâóºìî äîñòóï äî ðåñóðñ³â
-	  */
+      * Ð½Ð°Ð»Ð°ÑˆÑ‚Ð¾Ð²ÑƒÑ”Ð¼Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿ Ð´Ð¾ Ñ€ÐµÑÑƒÑ€ÑÑ–Ð²
+      */
     protected function _initAcl()
     {
 
         $acl = new Zend_Acl();
 
-        // äîäàºìî ðåñóðñè äëÿ ñàéòó
+        // Ð´Ð¾Ð´Ð°Ñ”Ð¼Ð¾ Ñ€ÐµÑÑƒÑ€ÑÐ¸ Ð´Ð»Ñ ÑÐ°Ð¹Ñ‚Ñƒ
         $acl->addResource('index');
         $acl->addResource('error');
         $acl->addResource('auth');
 
-        // äëÿ àäì³íêè
+        // Ð´Ð»Ñ Ð°Ð´Ð¼Ñ–Ð½ÐºÐ¸
         $acl->addResource('admin');
 
-        // ðåñóðñè create, update, delete º íàùàäêàìè ðåñóðñó admin
+        // Ñ€ÐµÑÑƒÑ€ÑÐ¸ create, update, delete Ñ” Ð½Ð°Ñ‰Ð°Ð´ÐºÐ°Ð¼Ð¸ Ñ€ÐµÑÑƒÑ€ÑÑƒ admin
         $acl->addResource('create', 'index');
         $acl->addResource('update', 'index');
         $acl->addResource('delete', 'index');
 
-        // ðåñóðñè login, logout º íàùàäêàìè ðåñóðñó auth
+        // Ñ€ÐµÑÑƒÑ€ÑÐ¸ login, logout Ñ” Ð½Ð°Ñ‰Ð°Ð´ÐºÐ°Ð¼Ð¸ Ñ€ÐµÑÑƒÑ€ÑÑƒ auth
         $acl->addResource('login', 'auth');
         $acl->addResource('logout', 'auth');
 
-        // ðîëü "ã³ñòü" (íåàâòîðèçîâàíèé êîðèñòóâà÷)
+        // Ñ€Ð¾Ð»ÑŒ "Ð³Ñ–ÑÑ‚ÑŒ" (Ð½ÐµÐ°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð¾Ð²Ð°Ð½Ð¸Ð¹ ÐºÐ¾Ñ€Ð¸ÑÑ‚ÑƒÐ²Ð°Ñ‡)
         $acl->addRole('guest');
 
-        // àäì³í³ñòðàòîð óñïàäêîâóº äîñòóï â³ä ãîñòÿ
+        // Ð°Ð´Ð¼Ñ–Ð½Ñ–ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€ ÑƒÑÐ¿Ð°Ð´ÐºÐ¾Ð²ÑƒÑ” Ð´Ð¾ÑÑ‚ÑƒÐ¿ Ð²Ñ–Ð´ Ð³Ð¾ÑÑ‚Ñ
         $acl->addRole('admin', 'guest');
 
-        // íàäàºìî äîçâîëè
+        // Ð½Ð°Ð´Ð°Ñ”Ð¼Ð¾ Ð´Ð¾Ð·Ð²Ð¾Ð»Ð¸
         $acl->allow('guest', 'error');
         $acl->allow('guest', 'index', array('index', 'view'));
         $acl->allow('guest', 'auth', array('index', 'login', 'logout'));
 
         $acl->allow('admin', 'admin', array('index', 'create', 'update', 'delete'));
 
-        // åêçåìïëÿð ãîëîâíîãî êîíòðîëåðà
+        // ÐµÐºÐ·ÐµÐ¼Ð¿Ð»ÑÑ€ Ð³Ð¾Ð»Ð¾Ð²Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð½Ñ‚Ñ€Ð¾Ð»ÐµÑ€Ð°
         $fc = Zend_Controller_Front::getInstance();
 
-        // ðåºñòðóºìî ïëàã³í ç íàçâîþ AccessCheck
+        // Ñ€ÐµÑ”ÑÑ‚Ñ€ÑƒÑ”Ð¼Ð¾ Ð¿Ð»Ð°Ð³Ñ–Ð½ Ð· Ð½Ð°Ð·Ð²Ð¾ÑŽ AccessCheck
         $fc->registerPlugin(new Application_Plugin_AccessCheck($acl, Zend_Auth::getInstance()));
     }
 }

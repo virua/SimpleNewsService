@@ -6,9 +6,9 @@ class ErrorController extends Zend_Controller_Action
     public function errorAction()
     {
         $this->view->title = 'Помилка :(';
-	    $this->view->headTitle($this->view->title);
-	    $form = new Application_Form_Login();
-	    $this->view->form = $form;
+        $this->view->headTitle($this->view->title);
+        $form = new Application_Form_Login();
+	$this->view->form = $form;
 
         $errors = $this->_getParam('error_handler');
 
@@ -45,7 +45,7 @@ class ErrorController extends Zend_Controller_Action
             $this->view->exception = $errors->exception;
         }
 
-        $this->view->request   = $errors->request;
+        $this->view->request = $errors->request;
     }
 
     public function getLog()

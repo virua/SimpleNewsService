@@ -6,9 +6,9 @@ class Application_Model_DbTable_Posts extends Zend_Db_Table_Abstract
     protected $_name = 'posts';
 
     /**
-	  * отримуємо новину по ідентифікатору
-	  * повертає масив
-	  */
+      * отримуємо новину по ідентифікатору
+      * повертає масив
+      */
     public function getPost($id)
     {
         $id = (int)$id;
@@ -22,28 +22,28 @@ class Application_Model_DbTable_Posts extends Zend_Db_Table_Abstract
     }
 
     /**
-	  * отримуємо новини порціями
-	  * параметри:
-	  *    pageNumber - цілочисельний номер поточної сторінки,
-	  *    perPage - кількість записів на одній сторінці
-	  */
-	public function getPaginatorRows($pageNumber=1, $perPage=5)
-	{
-		$paginator = new Zend_Paginator(
-			new Zend_Paginator_Adapter_DbSelect(
-				$this->select()->order('id DESC')
-			)
-		);
+      * отримуємо новини порціями
+      * параметри:
+      *    pageNumber - цілочисельний номер поточної сторінки,
+      *    perPage - кількість записів на одній сторінці
+      */
+    public function getPaginatorRows($pageNumber=1, $perPage=5)
+    {
+        $paginator = new Zend_Paginator(
+            new Zend_Paginator_Adapter_DbSelect(
+                    $this->select()->order('id DESC')
+            )
+        );
 
-		$paginator->setCurrentPageNumber($pageNumber);
-		$paginator->setItemCountPerPage($perPage);
+        $paginator->setCurrentPageNumber($pageNumber);
+        $paginator->setItemCountPerPage($perPage);
 
-		return $paginator;
-	}
+        return $paginator;
+    }
 
     /**
-	  * додаємо новину - робимо запис в базу
-	  */
+      * додаємо новину - робимо запис в базу
+      */
     public function addPost($title, $text, $category_id)
     {
         $data = array(
@@ -56,8 +56,8 @@ class Application_Model_DbTable_Posts extends Zend_Db_Table_Abstract
     }
 
     /**
-	  * редагуємо новину з ідентифікатором $id
-	  */
+      * редагуємо новину з ідентифікатором $id
+      */
     public function updatePost($id, $title, $text, $category_id)
     {
         $id = (int)$id;
@@ -71,8 +71,8 @@ class Application_Model_DbTable_Posts extends Zend_Db_Table_Abstract
     }
 
     /**
-	  * видаляємо новину з ідентифікатором $id
-	  */
+      * видаляємо новину з ідентифікатором $id
+      */
     public function deletePost($id)
     {
         $this->delete('id = ' . (int)$id);

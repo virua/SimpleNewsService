@@ -1,8 +1,8 @@
 <?php
+
 /**
  * форма для редагування/створення новини
  */
-
 class Application_Form_Post extends Zend_Form
 {
 

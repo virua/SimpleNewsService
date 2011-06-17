@@ -2,10 +2,10 @@
 
 <table id="news-table">
 	<tr>
-		<th>ID</th>
-		<th>Новина</th>
-		<th></th>
-		<th></th>
+            <th>ID</th>
+            <th>Новина</th>
+            <th></th>
+            <th></th>
 	</tr>
 	<?php
 	// булева змінна для перемикання між парними/непарними рядками таблиці
@@ -19,24 +19,24 @@
             </td>
             <td>
             	<div>
-            		<a href="<?php echo $this->url(array('controller' => 'index', 'action' => 'view', 'id' => (int)$news_item['id']), null, true ) ?>"><?php echo $this->escape($news_item['title']) ?></a>
+                    <a href="<?php echo $this->url(array('controller' => 'index', 'action' => 'view', 'id' => (int)$news_item['id']), null, true ) ?>"><?php echo $this->escape($news_item['title']) ?></a>
             	</div>
 
-				<small>
-	            	<?php echo $this->escape($news_item['date']) ?>,
-	            	<?php echo $this->escape($this->categoryName($news_item['category_id'])) ?>
-	            </small>
+                <small>
+                    <?php echo $this->escape($news_item['date']) ?>,
+                    <?php echo $this->escape($this->categoryName($news_item['category_id'])) ?>
+                </small>
             </td>
 
             <td>
             	<small>
-            		<a href="<?php echo $this->url(array('controller' => 'admin', 'action' => 'update', 'id' => (int)$news_item['id']), null, true ) ?>">Редагувати</a>
+                    <a href="<?php echo $this->url(array('controller' => 'admin', 'action' => 'update', 'id' => (int)$news_item['id']), null, true ) ?>">Редагувати</a>
             	</small>
             </td>
 
             <td>
             	<small>
-            		<a href="<?php echo $this->url(array('controller' => 'admin', 'action' => 'delete', 'id' => (int)$news_item['id']), null, true ) ?>">Видалити</a>
+                    <a href="<?php echo $this->url(array('controller' => 'admin', 'action' => 'delete', 'id' => (int)$news_item['id']), null, true ) ?>">Видалити</a>
             	</small>
             </td>
         </tr>
