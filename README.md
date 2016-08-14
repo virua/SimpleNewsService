@@ -1,4 +1,4 @@
-Simple news service using Zend Framework 1.x
+Simple News Website
 ===========================================================
 
-test application
+Test application using Zend Framework 1.x.
